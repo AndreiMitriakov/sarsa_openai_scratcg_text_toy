@@ -66,21 +66,11 @@ class Agent:
 
         return action
 
-    def update(self, s_, s, a_, a, r, alg = 'SARSA'):
+    def update(self, s_, s, a_, a, r, alg = 'QL'):
 	if alg == 'SARSA':
 	    x = self.Q[s_[0]][s_[1]][a_]
 	elif alg == 'QL':
-	    max_val = max(self.Q[s_[0]][s_[1]])
-	    #if there are several same values in Q-table
-	    cnt = [q for q in self.Q[s_[0]][s_[1]] if q == max_val]
-	    if len(cnt) == 1:
-                x = self.Q[s_[0]][s_[1]].index(max_val)	#
-	    else:
-		ind = []
-		for j in range(len(self.Q[s_[0]][s_[1]])):
-		    if self.Q[s_[0]][s_[1]][j] == max_val:
-			ind.append(j)
-		x = ind[random.randint(0, len(ind)-1)]
+	    x = max(self.Q[s_[0]][s_[1]])
         error = r + self.gamma * x - self.Q[s[0]][s[1]][a]
 	self.Q[s[0]][s[1]][a] += self.alpha*(error)
 	self.Q[s[0]][s[1]][a] = round(self.Q[s[0]][s[1]][a], 2)

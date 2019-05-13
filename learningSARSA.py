@@ -14,7 +14,7 @@ class Learning:
         self.env = gym.make('cliff-v0')
 	self.agent = Agent(self.m, self.n)
         self.epReturn = []
-        self.nEpisodes = 10000
+        self.nEpisodes = 1000
 
     def run(self):
         i = 0
